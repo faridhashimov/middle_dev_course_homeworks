@@ -1,0 +1,25 @@
+.characterContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.characterImgContainer {
+    height: 141px;
+    border: 1px solid #13d924;
+    margin-bottom: 5px;
+}
+
+.characterImgContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.characterInfoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.characterInfoContainer span {
+    font-size: 14px;
+}
