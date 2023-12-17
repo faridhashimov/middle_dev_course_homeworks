@@ -19,7 +19,7 @@ const Location = ({ item }) => {
                 </span>
                 <span>
                     <b>Created: </b>
-                    {created.slice(0, 10)}
+                    {created?.slice(0, 10)}
                 </span>
             </div>
         </div>

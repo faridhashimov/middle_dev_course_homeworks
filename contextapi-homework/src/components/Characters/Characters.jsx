@@ -30,8 +30,7 @@ const Characters = ({ item }) => {
                 </span>
                 <span>
                     <b>Created: </b>
-                    {created.slice(0,10)}
-                    {/* {created} */}
+                    {created?.slice(0, 10)}
                 </span>
             </div>
         </div>

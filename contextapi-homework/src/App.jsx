@@ -1,22 +1,48 @@
+import { Suspense, lazy, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import { Category, Element, Home, NotFound } from './pages'
+import {
+    // CategoryPage,
+    // ElementPage,
+    HomePage,
+    // NotFound
+} from './pages'
 import CategoryLayout from './layout/CategoryLayout'
 import { SignIn } from './components'
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute'
 import { AuthProvider } from './context/AuthContext'
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
+import './App.css'
 
 function App() {
+    const [pageNum, setPageNum] = useState(1)
+
+    // const HomePage = lazy(() => import('./pages'))
+    const CategoryPage = lazy(() => import('./pages/CategoryPage/CategoryPage'))
+    const ElementPage = lazy(() => import('./pages/ElementPage/ElementPage'))
+    const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
     return (
         <AuthProvider>
             <Routes>
-                <Route path="/" element={<CategoryLayout />}>
-                    <Route index element={<Home />} />
+                <Route
+                    path="/"
+                    element={
+                        <CategoryLayout
+                            pageNum={pageNum}
+                            setPageNum={setPageNum}
+                        />
+                    }
+                >
+                    <Route index element={<HomePage />} />
                     <Route
                         path="/category/:categoryId"
                         element={
                             <PrivateRoute>
-                                <Category />
+                                <ErrorBoundary>
+                                    <CategoryPage
+                                        pageNum={pageNum}
+                                        setPageNum={setPageNum}
+                                    />
+                                </ErrorBoundary>
                             </PrivateRoute>
                         }
                     />
@@ -24,7 +50,9 @@ function App() {
                         path="/category/:categoryId/:elementId?"
                         element={
                             <PrivateRoute>
-                                <Element />
+                                <ErrorBoundary>
+                                    <ElementPage />
+                                </ErrorBoundary>
                             </PrivateRoute>
                         }
                     />

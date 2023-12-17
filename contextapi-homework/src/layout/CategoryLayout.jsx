@@ -1,20 +1,32 @@
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+    NavLink,
+    Outlet,
+    useLocation,
+    useNavigate,
+    useParams,
+} from 'react-router-dom'
 import './CategoryLayout.css'
 import logo from '../assets/Rick_and_Morty.svg.png'
 import { useAuth } from '../context/AuthContext'
+import { Suspense } from 'react'
 
-const CategoryLayout = () => {
+const CategoryLayout = ({ setPageNum }) => {
     const { signOut } = useAuth()
     const { user } = useAuth()
     const navigate = useNavigate()
     const { pathname } = useLocation()
+    const { categoryId } = useParams()
     const onSignOut = () => {
         signOut(() => {
             navigate('/login', { replace: true })
         })
     }
 
-    console.log(pathname.slice(1))
+    const onChageCat = (e) => {
+        if (e.target.href?.slice(31) !== categoryId) {
+            setPageNum(1)
+        }
+    }
 
     return (
         <>
@@ -27,15 +39,28 @@ const CategoryLayout = () => {
                 {(user || pathname.slice(1) !== 'login') && (
                     <>
                         <li>
-                            <NavLink to="/category/heroes">Heroes</NavLink>
+                            <NavLink
+                                onClick={onChageCat}
+                                to="/category/character"
+                            >
+                                Heroes
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/category/locations">
+                            <NavLink
+                                onClick={onChageCat}
+                                to="/category/location"
+                            >
                                 Locations
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/category/episodes">Episodes</NavLink>
+                            <NavLink
+                                onClick={onChageCat}
+                                to="/category/episode"
+                            >
+                                Episodes
+                            </NavLink>
                         </li>
                     </>
                 )}
@@ -45,7 +70,9 @@ const CategoryLayout = () => {
                     </li>
                 )}
             </ul>
-            <Outlet />
+            <Suspense fallback={<p>Loading page...</p>}>
+                <Outlet />
+            </Suspense>
         </>
     )
 }

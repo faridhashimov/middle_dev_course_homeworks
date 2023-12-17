@@ -1,10 +1,13 @@
 .signInContainer {
     padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .formContainer {
     width: 332px;
-    margin: 0 auto;
+    /* height: 300px; */
     padding: 40px 20px;
     border: 1px solid #ddd;
     border-radius: 4px;

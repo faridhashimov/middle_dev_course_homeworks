@@ -52,7 +52,7 @@ const TextInput = ({
                     <div className="rightIconContainer">{rightSection}</div>
                 )}
             </div>
-            <div className="error">{error}</div>
+            <div className="inputError">{error}</div>
         </div>
     )
 }

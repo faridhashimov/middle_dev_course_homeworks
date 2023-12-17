@@ -1,0 +1,52 @@
+import { useEffect, useState } from 'react'
+
+export function useFetchElements(categoryId, pageNumber) {
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    const [data, setData] = useState([])
+    // const [pageNumber, setPageNumber] = useState(1)
+
+    const [hasMore, setHasmore] = useState(true)
+
+    useEffect(() => {
+        setData([])
+        // setPageNumber(1)
+    }, [categoryId])
+
+    useEffect(() => {
+        setLoading(true)
+        setError(false)
+        const fetchData = async () => {
+            try {
+                const response = await fetch(
+                    `https://rickandmortyapi.com/api/${
+                        categoryId === 'heroes'
+                            ? 'character'
+                            : categoryId.slice(0, categoryId.length - 1)
+                    }?page=${pageNumber}`
+                )
+                const newData = await response.json()
+                setData((prevState) => {
+                    return [...new Set([...prevState, ...newData.results])]
+                })
+                if (newData.info.next === null) {
+                    setHasmore(false)
+                }
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                setError(true)
+            }
+        }
+
+        fetchData()
+    }, [categoryId, pageNumber])
+
+    return {
+        loading,
+        error,
+        hasMore,
+        data,
+        // setPageNumber
+    }
+}
