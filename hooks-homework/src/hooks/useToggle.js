@@ -1,50 +1,60 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useReducer, useRef } from 'react'
 
 export function useToggle(defaultValue) {
-    const [arr, setArr] = useState(defaultValue || [])
-    const [value, setValue] = useState()
     const arrIndex = useRef(0)
+    const initialState = !defaultValue ? true : defaultValue[0]
 
-    // console.log('arr:', arr)
-    // console.log('value:', arr[arrIndex.current])
-
-    useLayoutEffect(() => {
-        if (defaultValue) {
-            setValue(arr[0])
-        } else {
-            setValue('')
+    function reducer(value, action) {
+        switch (action.type) {
+            case 'boolean': {
+                return !value
+            }
+            case 'object': {
+                return action.payload
+            }
+            case 'undefined': {
+                return true
+            }
+            case 'string': {
+                return action.payload
+            }
+            default:
+                throw new Error()
         }
-    }, [])
+    }
 
     function indexInc() {
         arrIndex.current =
-            arrIndex.current < arr.length - 1 ? ++arrIndex.current : 0
-        setValue(arr[arrIndex.current])
+            arrIndex.current < defaultValue.length - 1 ? ++arrIndex.current : 0
     }
 
-    function toggleValue(valueProp) {
-        if (
-            typeof valueProp === 'undefined' &&
-            typeof defaultValue === 'object'
-        ) {
+    const handleArray = () => {
+        dispatch({ type: 'object', payload: defaultValue[arrIndex.current] })
+    }
+    const handleBoolean = () => {
+        dispatch({ type: 'boolean' })
+    }
+    const handleStr = (prop) => {
+        dispatch({ type: 'string', payload: prop })
+    }
+    const handleEmptyValue = () => {
+        dispatch({ type: 'undefined' })
+    }
+
+    const [value, dispatch] = useReducer(reducer, initialState)
+
+    function toggle(prop) {
+        if (defaultValue) {
             indexInc()
-        } else if (arr.includes(valueProp)) {
-            indexInc()
-        } else if (
-            typeof valueProp === 'undefined' &&
-            typeof defaultValue === 'undefined' &&
-            typeof value !== 'boolean'
-        ) {
-            setValue(true)
-        } else if (typeof value === 'boolean') {
-            setValue((prevState) => !prevState)
-        } else if (typeof valueProp === 'string' && !arr.includes(valueProp)) {
-            setArr((arr) => [...arr, valueProp])
-            setValue(valueProp)
-        } else {
-            setValue('')
         }
+        typeof prop === 'string'
+            ? handleStr(prop)
+            : Array.isArray(defaultValue)
+            ? handleArray()
+            : typeof initialState === 'boolean'
+            ? handleBoolean()
+            : handleEmptyValue()
     }
 
-    return [value, toggleValue]
+    return [value, toggle]
 }

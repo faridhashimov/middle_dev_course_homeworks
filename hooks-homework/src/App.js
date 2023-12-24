@@ -15,17 +15,19 @@ function App() {
 
     // const [scroll, scrollTo] = useWindowScroll()
 
-    const { height, width } = useViewportSize();
-    
-    console.log( height, width);
+    // const { height, width } = useViewportSize()
 
-    // const [value, toggleValue] = useToggle()
-    // const [value, toggleValue] = useToggle(['blue', 'orange', 'cyan', 'teal'])
+    // const [value, toggle] = useToggle()
+    const [value, toggle] = useToggle(['blue', 'orange', 'cyan', 'teal'])
+
+    // const { data, isLoading, error, refetch } = useFetch(
+    //     'https://jsonplaceholder.typicode.com/posts'
+    // )
 
     return (
         <div className="App">
-            <header className="App-header">
-                {/* <div>
+            {/* <header className="App-header"> */}
+            {/* <div>
                     <p>Твой токен: {token}</p>
                     <div>
                         <button onClick={() => setItem('new-token')}>
@@ -36,10 +38,10 @@ function App() {
                         </button>
                     </div>
                 </div> */}
-                {/* <div ref={myRef}>
+            {/* <div ref={myRef}>
                     {hovered ? 'На меня навели мышку' : 'Наведи мышкой на меня'}
                 </div> */}
-                {/* <div>
+            {/* <div>
                     <p>
                         Scroll position x: {scroll.x}, y: {scroll.y}
                     </p>
@@ -122,12 +124,35 @@ function App() {
                         Scroll to top
                     </button>
                 </div> */}
-                <div>
+            {/* <div>
                     Width: {width}px, height: {height}px
-                </div>
-                {/* <p>{String(value)}</p>
-                <button onClick={() => toggleValue()}>Click</button> */}
-            </header>
+                </div> */}
+            {/* <p>{String(value)}</p> */}
+            <button
+                style={{ marginTop: '40px', width: '60px', cursor: 'pointer' }}
+                onClick={() => toggle('blue')}
+            >
+                {String(value)}
+            </button>
+            {/* </header> */}
+            {/* <div>
+                <button
+                    onClick={() =>
+                        refetch({
+                            params: {
+                                _limit: 3,
+                            },
+                        })
+                    }
+                >
+                    Перезапросить
+                </button>
+            </div>
+            {isLoading && 'Загрузка...'}
+            {error && 'Произошла ошибка'}
+            {data &&
+                !isLoading &&
+                data.map((item) => <div key={item.id}>{item.title}</div>)} */}
         </div>
     )
 }
