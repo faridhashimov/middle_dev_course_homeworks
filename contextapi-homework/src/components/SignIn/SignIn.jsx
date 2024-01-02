@@ -4,6 +4,7 @@ import TextInput from '../TextInput/TextInput'
 import './SignIn.css'
 import { useAuth } from '../../context/AuthContext'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Typography } from '@mui/material'
 
 function SignIn() {
     const signInformRef = useRef(null)
@@ -38,7 +39,9 @@ function SignIn() {
     return (
         <div className="signInContainer">
             <div className="formContainer">
-                <h1 className="formHeader">Sign In</h1>
+                <Typography variant="h5" textAlign={'center'} mb={3}>
+                    Log In
+                </Typography>
                 <form
                     ref={signInformRef}
                     onSubmit={(e) =>

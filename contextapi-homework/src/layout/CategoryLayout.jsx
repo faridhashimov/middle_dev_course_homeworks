@@ -9,6 +9,8 @@ import './CategoryLayout.css'
 import logo from '../assets/Rick_and_Morty.svg.png'
 import { useAuth } from '../context/AuthContext'
 import { Suspense } from 'react'
+import { Loading } from '../components'
+import { Button, styled } from '@mui/material'
 
 const CategoryLayout = ({ setPageNum }) => {
     const { signOut } = useAuth()
@@ -27,6 +29,10 @@ const CategoryLayout = ({ setPageNum }) => {
             setPageNum(1)
         }
     }
+
+    const SignOutBtn = styled(Button)({
+        color: '#13d924',
+    })
 
     return (
         <>
@@ -66,11 +72,17 @@ const CategoryLayout = ({ setPageNum }) => {
                 )}
                 {user && (
                     <li className="signOut">
-                        <button onClick={onSignOut}>Sign Out</button>
+                        <SignOutBtn
+                            size="small"
+                            onClick={onSignOut}
+                            variant="outlined"
+                        >
+                            Sign Out
+                        </SignOutBtn>
                     </li>
                 )}
             </ul>
-            <Suspense fallback={<p>Loading page...</p>}>
+            <Suspense>
                 <Outlet />
             </Suspense>
         </>

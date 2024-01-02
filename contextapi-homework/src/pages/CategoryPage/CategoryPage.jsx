@@ -1,8 +1,9 @@
 import { lazy, useCallback, useEffect, useRef } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { Characters, Episode, Location } from '../../components'
+import { Characters, Episode, Loading, Location } from '../../components'
 import { useFetchElements } from '../../hooks'
 import './CategoryPage.css'
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 const CategoryPage = ({ pageNum, setPageNum }) => {
     const { categoryId } = useParams()
@@ -68,24 +69,28 @@ const CategoryPage = ({ pageNum, setPageNum }) => {
                         {categoryId.charAt(0).toUpperCase() +
                             categoryId.slice(1)}
                     </h3>
-                    <div className="sort">
-                        <label htmlFor="sort">Sort by:</label>
-                        <select
+                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                        <InputLabel id="demo-select-small-label">
+                            Sort
+                        </InputLabel>
+                        <Select
+                            labelId="demo-select-small-label"
+                            id="demo-select-small"
+                            value="asc"
+                            label="Sort"
                             onChange={(e) =>
                                 setSearchParams({ sort: e.target.value })
                             }
-                            name="sort"
-                            id="sort"
                         >
-                            <option value="asc">ASC</option>
-                            <option value="desc">DESC</option>
-                        </select>
-                    </div>
+                            <MenuItem value="asc">ASC</MenuItem>
+                            <MenuItem value="desc">DESC</MenuItem>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div className="categoriesContainer">
                     {categoryId === 'character'
                         ? sortArr(data).map((item, index) => {
-                              if (data.length - 10 === index + 1) {
+                              if (data.length - 1 === index + 1) {
                                   return (
                                       <Link
                                           key={item.id}
@@ -175,9 +180,11 @@ const CategoryPage = ({ pageNum, setPageNum }) => {
                                   )
                               }
                           })}
+                    {loading ? <Loading /> : null}
+                    {error && (
+                        <div className="error">Something went wrong...</div>
+                    )}
                 </div>
-                {loading && <div className="loading">Loading...</div>}
-                {error && <div className="error">Something went wrong...</div>}
             </div>
         </div>
     )

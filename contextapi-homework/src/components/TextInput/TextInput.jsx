@@ -1,3 +1,4 @@
+import { InputLabel, styled } from '@mui/material'
 import './TextInput.css'
 
 const TextInput = ({
@@ -27,12 +28,19 @@ const TextInput = ({
             default:
         }
     }
+
+    const StyledLabel = styled(InputLabel)({
+        color: '#000',
+        fontSize: '20px',
+        fontWeight: 400,
+    })
+
     return (
         <div className="inputContainer">
-            <label htmlFor={label}>
+            <StyledLabel htmlFor={label}>
                 {label}
                 {withAsterisk && <span className="asterisk"> *</span>}
-            </label>
+            </StyledLabel>
             <div
                 style={{ borderRadius: `${borderRadius(radius)}px` }}
                 className={`inputWrapper ${error && 'wrapperError'}`}

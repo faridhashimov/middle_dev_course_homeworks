@@ -1,39 +1,26 @@
+import { Card, CardContent, CardMedia } from '@mui/material'
 import './Characters.css'
+import { TypographyBox } from '../../components'
 
 const Characters = ({ item }) => {
     const { image, type, gender, status, species, name, created } = item
+
     return (
-        <div className="characterContainer">
-            <div className="characterImgContainer">
-                <img src={image} alt={name} />
-            </div>
-            <div className="characterInfoContainer">
-                <span>
-                    <b>Name: </b>
-                    {name}
-                </span>
-                <span>
-                    <b>Status: </b>
-                    {status}
-                </span>
-                <span>
-                    <b>Species: </b>
-                    {species}
-                </span>
-                <span>
-                    <b>Type: </b>
-                    {type}
-                </span>
-                <span>
-                    <b>Gender: </b>
-                    {gender}
-                </span>
-                <span>
-                    <b>Created: </b>
-                    {created?.slice(0, 10)}
-                </span>
-            </div>
-        </div>
+        <Card sx={{ height: '100%' }}>
+            <CardMedia
+                sx={{ height: 140 }}
+                image={image}
+                title="green iguana"
+            />
+            <CardContent sx={{ padding: '5px' }}>
+                <TypographyBox prop="Name" value={name} />
+                <TypographyBox prop="Status" value={status} />
+                <TypographyBox prop="Species" value={species} />
+                <TypographyBox prop="Type" value={type} />
+                <TypographyBox prop="Gender" value={gender} />
+                <TypographyBox prop="Created" value={created} />
+            </CardContent>
+        </Card>
     )
 }
 
