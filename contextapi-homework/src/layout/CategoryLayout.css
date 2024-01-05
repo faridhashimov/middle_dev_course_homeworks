@@ -53,3 +53,16 @@
 .navbar li a.active {
     text-decoration: underline;
 }
+
+
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        height: max-content;
+        padding: 10px 0;
+    }
+
+    .navbar li:first-child,.navbar .signOut {
+        position: initial;
+    }
+}

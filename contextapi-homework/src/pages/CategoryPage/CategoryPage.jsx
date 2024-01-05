@@ -76,7 +76,7 @@ const CategoryPage = ({ pageNum, setPageNum }) => {
                         <Select
                             labelId="demo-select-small-label"
                             id="demo-select-small"
-                            value="asc"
+                            value={searchParams.get('sort')}
                             label="Sort"
                             onChange={(e) =>
                                 setSearchParams({ sort: e.target.value })

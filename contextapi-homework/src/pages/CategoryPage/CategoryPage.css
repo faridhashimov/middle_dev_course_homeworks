@@ -77,8 +77,19 @@
 
 @media (max-width: 800px) {
     .categoriesContainer {
-        width: 550px;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
+        width: max-content;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .category {
+        width: 200px;
+    }
+
+    .categoryHeader {
+        flex-direction: column;
+    }
+
+    .categoryPageContainer {
+        margin: 10px 0px;
     }
 }

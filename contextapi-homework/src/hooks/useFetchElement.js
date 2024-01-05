@@ -11,7 +11,7 @@ export function useFetchElement(categoryId, elementId) {
         setError(false)
         let cancel
         axios({
-            url: `http://rickandmortyapi.com/api/${categoryId}/${elementId}`,
+            url: `https://rickandmortyapi.com/api/${categoryId}/${elementId}`,
             method: 'GET',
             cancelToken: new axios.CancelToken((c) => (cancel = c)),
         })
