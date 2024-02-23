@@ -1,0 +1,68 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    height: 60px;
+    color: inherit;
+    box-shadow: 0px 6px 11px -1px rgba(34, 60, 80, 0.19);
+}
+
+.navbar li:first-child {
+    position: absolute;
+    left: 50px;
+}
+
+.navbar .signOut {
+    position: absolute;
+    right: 50px;
+}
+
+.navbar .signOut button {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 20px;
+    background-color: transparent;
+    border: 1px solid #13d924;
+}
+
+.navbar li {
+    padding: 5px 10px;
+}
+
+.navbar li:hover:not(:first-child, .signOut) {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 2px;
+    background-color: #ddd;
+}
+
+.navbar li a {
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s ease-out;
+    color: #13d924;
+}
+
+.navbar li a img {
+    height: 30px;
+}
+
+.navbar li a.active {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        height: max-content;
+        padding: 10px 0;
+    }
+
+    .navbar li:first-child,.navbar .signOut {
+        position: initial;
+    }
+}
