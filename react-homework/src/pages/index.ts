@@ -1,0 +1,7 @@
+export { default as LoginPage } from './LoginPage/LoginPage'
+export { default as RegisterPage } from './RegisterPage/RegisterPage'
+export { default as HomePage } from './HomePage/HomePage'
+export { default as EditNote } from './EditNote/EditNote'
+export { default as NewNote } from './NewNote/NewNote'
+export { default as Note } from './Note/Note'
+export { default as Offline } from './Offline/Offline'
