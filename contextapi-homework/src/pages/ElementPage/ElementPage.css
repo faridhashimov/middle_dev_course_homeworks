@@ -1,0 +1,15 @@
+.pageContainer {
+    width: 100vw;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.element {
+    border: 1px solid #13d924;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0px 6px 11px -1px rgba(34, 60, 80, 0.19);
+    cursor: pointer;
+}
