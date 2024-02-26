@@ -1,25 +1,26 @@
-import {  applyMiddleware, combineReducers, createStore } from 'redux'
-import { contactsReducer } from './contactsReducer'
-import { favoritesReducer } from './favoritesReducer'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { groupContactsReducer } from './groupContactsReducer'
-import { composeWithDevTools } from '@redux-devtools/extension'
+import { combineReducers } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+
 import { logActionMiddleware } from './logActionMiddleware'
+import {
+    contactsReducerPath,
+    contactsMiddleware,
+    contactsReducer,
+    favoritesReducer,
+} from './contacts'
 
-const rootReducer = persistReducer(
-    { key: 'root', storage: storage },
-    combineReducers({
-        contacts: contactsReducer,
-        groups: groupContactsReducer,
-        favorites: favoritesReducer,
-    })
-)
+const rootReducer = combineReducers({
+    favorites: favoritesReducer,
+    [contactsReducerPath]: contactsReducer,
+})
 
-export const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(logActionMiddleware))
-)
-export const persistor = persistStore(store)
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat([
+            contactsMiddleware,
+            logActionMiddleware,
+        ]),
+})
 
 export type RootState = ReturnType<typeof rootReducer>

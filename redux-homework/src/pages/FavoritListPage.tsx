@@ -4,7 +4,7 @@ import { ContactCard } from 'src/components/ContactCard'
 import { useAppSelector } from 'src/redux/hooks'
 
 export const FavoritListPage = () => {
-    const contacts = useAppSelector((state) => state.favorites)
+    const contacts = useAppSelector((state) => state.favorites.favorites)
 
     return (
         <Row xxl={4} className="g-4">

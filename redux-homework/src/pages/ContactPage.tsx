@@ -5,15 +5,17 @@ import { ContactDto } from 'src/types/dto/ContactDto'
 import { ContactCard } from 'src/components/ContactCard'
 import { Empty } from 'src/components/Empty'
 import { useAppSelector } from 'src/redux/hooks'
+import { useGetContactsQuery } from 'src/redux/contacts'
 
 export const ContactPage: FC = () => {
     const { contactId } = useParams<{ contactId: string }>()
     const [contact, setContact] = useState<ContactDto>()
 
-    const contacts = useAppSelector((state) => state.contacts)
+    const { data: contacts } = useGetContactsQuery()
 
     useEffect(() => {
-        setContact(() => contacts.find(({ id }) => id === contactId))
+        contacts &&
+            setContact(() => contacts.find(({ id }) => id === contactId))
     }, [contactId])
 
     return (
