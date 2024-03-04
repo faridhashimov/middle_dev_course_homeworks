@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { ContactDto } from 'src/types/dto/ContactDto'
@@ -6,13 +6,15 @@ import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { Empty } from 'src/components/Empty'
 import { ContactCard } from 'src/components/ContactCard'
-import { useAppSelector } from 'src/redux/hooks'
+import { contactsStore } from 'src/store/contactsStore'
+import { observer } from 'mobx-react-lite'
 
-export const GroupPage = () => {
+export const GroupPage = observer(() => {
     const { groupId } = useParams<{ groupId: string }>()
     const [allcontacts, setAllcontacts] = useState<ContactDto[]>([])
 
-    const { groups, contacts } = useAppSelector((state) => state)
+    const contacts = contactsStore.contacts
+    const groups = contactsStore.groups
 
     const [groupContacts, setGroupContacts] = useState<GroupContactsDto>()
 
@@ -57,4 +59,4 @@ export const GroupPage = () => {
             )}
         </Row>
     )
-}
+})

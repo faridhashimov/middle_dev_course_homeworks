@@ -1,14 +1,11 @@
-import React from 'react'
-import { removeFromFavorites } from 'src/redux/contacts'
-import { useAppDispatch } from 'src/redux/hooks'
+import { contactsStore } from 'src/store/contactsStore'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const RemoveFromFavorites: React.FC<{
     id: ContactDto['id']
 }> = ({ id }) => {
-    const dispatch = useAppDispatch()
     return (
-        <div onClick={() => dispatch(removeFromFavorites(id))}>
+        <div onClick={() => contactsStore.removeFromFavorites(id)}>
             <svg
                 className="heart"
                 aria-hidden="true"

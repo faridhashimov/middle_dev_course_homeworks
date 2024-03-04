@@ -1,10 +1,10 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite'
 import { Col, Row } from 'react-bootstrap'
 import { ContactCard } from 'src/components/ContactCard'
-import { useAppSelector } from 'src/redux/hooks'
+import { contactsStore } from 'src/store/contactsStore'
 
-export const FavoritListPage = () => {
-    const contacts = useAppSelector((state) => state.favorites.favorites)
+export const FavoritListPage = observer(() => {
+    const contacts = contactsStore.favorites
 
     return (
         <Row xxl={4} className="g-4">
@@ -15,4 +15,4 @@ export const FavoritListPage = () => {
             ))}
         </Row>
     )
-}
+})

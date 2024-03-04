@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { useAppSelector } from 'src/redux/hooks'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
-import { useGetContactsQuery, useGetGroupsQuery } from 'src/redux/contacts'
+import { contactsStore } from 'src/store/contactsStore'
+import { observer } from 'mobx-react-lite'
 
-export const ContactListPage = () => {
-    // const contactsData: ContactDto[] = useAppSelector((state) => state.contacts)
-    // const groupsData: GroupContactsDto[] = useAppSelector(
-    //     (state) => state.groups
-    // )
+export const ContactListPage = observer(() => {
     const [contacts, setContacts] = useState<ContactDto[]>([])
     const [groupsData, setGroupsData] = useState<GroupContactsDto[]>([])
-    const { data } = useGetContactsQuery()
-    const { data: groups } = useGetGroupsQuery()
-    console.log(contacts[0])
+
+    const data = contactsStore.contacts
+    const groups = contactsStore.groups
+
+    useEffect(() => {
+        contactsStore.getContacts()
+    }, [])
 
     useEffect(() => {
         data && setContacts(data)
@@ -68,4 +68,4 @@ export const ContactListPage = () => {
             </Col>
         </Row>
     )
-}
+})

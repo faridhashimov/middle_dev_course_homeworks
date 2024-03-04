@@ -1,16 +1,15 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { addToFavorites } from 'src/redux/contacts'
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
+import { contactsStore } from 'src/store/contactsStore'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const AddToFavorites: React.FC<{
     contact: ContactDto
-}> = ({ contact }) => {
-    const dispatch = useAppDispatch()
+}> = observer(({ contact }) => {
     const navigate = useNavigate()
 
-    const favorites = useAppSelector((state) => state.favorites.favorites)
+    const favorites = contactsStore.favorites
 
     let isInFavorites = favorites.find((tr) => tr.id === contact.id)
         ? true
@@ -22,7 +21,7 @@ export const AddToFavorites: React.FC<{
                 if (isInFavorites) {
                     navigate('/favorit')
                 } else {
-                    dispatch(addToFavorites(contact))
+                    contactsStore.addToFavorites(contact)
                 }
             }}
         >
@@ -43,4 +42,4 @@ export const AddToFavorites: React.FC<{
             }`}</span>
         </div>
     )
-}
+})

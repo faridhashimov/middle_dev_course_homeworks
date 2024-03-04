@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './MainApp.scss'
 import { ThemeProvider } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -9,12 +10,15 @@ import {
     FavoritListPage,
     GroupListPage,
 } from 'src/pages'
-import { Provider } from 'react-redux'
-import { store } from 'src/redux/store'
+import { contactsStore } from 'src/store/contactsStore'
 
 export const MainApp = () => {
+
+    // useEffect(() => {
+    //     contactsStore.getContacts()
+    // }, [])
+
     return (
-        <Provider store={store}>
             <ThemeProvider
                 breakpoints={[
                     'xxxl',
@@ -54,6 +58,5 @@ export const MainApp = () => {
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
-        </Provider>
     )
 }

@@ -1,11 +1,16 @@
-import React from 'react'
+import { observer } from 'mobx-react-lite'
+import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
-import { useAppSelector } from 'src/redux/hooks'
+import { contactsStore } from 'src/store/contactsStore'
 
-export const GroupListPage = () => {
-    const groups = useAppSelector((state) => state.groups)
-    console.log(groups)
+export const GroupListPage = observer(() => {
+    const groups = contactsStore.groups
+
+    useEffect(() => {
+        contactsStore.getGroups()
+    }, [])
+
     return (
         <Row xxl={4}>
             {groups.map((groupContacts) => (
@@ -15,4 +20,4 @@ export const GroupListPage = () => {
             ))}
         </Row>
     )
-}
+})
